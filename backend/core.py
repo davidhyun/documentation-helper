@@ -20,9 +20,14 @@ def run_llm(query: str) -> str:
         retriever=retriever.as_retriever(),
         combine_docs_chain=stuff_documents_chain
     )
-    result = qa.invoke(input={"input": query}) 
+    result = qa.invoke(input={"input": query})
+    new_result = {
+        "query": result["input"],
+        "result": result["answer"],
+        "source_documents": result["context"]
+    }
     
-    return result
+    return new_result
 
 
 if __name__ == "__main__":
